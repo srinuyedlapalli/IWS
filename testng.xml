@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="IWS Calls">
+  <test name="IWS Calls Automation Report on Stg4" preserve-order="true" verbose="1">
+   	<parameter name="environment" value="openapi.sfstg4.qa.snapfish.com"></parameter>
+    <classes>    
+      <class name="com.snapfish.iws.client.IwsTestClient">     
+       <methods>       
+          <include name="iwsUser1RegisterRequest"></include>          
+          <include name="iwsUser2LoginRequest"/>          
+           <include name="iwsUser3ExistsRequest"/>
+          <include name="iwsUser4DetailRequest"/>
+          <include name="iwsUser5UpdateDataRequest"/>
+          <include name="iwsUser6UpdateAddressRequest"/>          
+          <include name="iwsUser7UpdatePaymentRequest"/>
+          <include name="iwsUser8UpdatePassRequest"/> 
+          <include name="iwsUser9ResetPassRequest"/>    
+          <include name="iwsUserUpdatePaymentRequest_Negative"/> 
+          <include name="iwsUserLoginRequest_Negative()"/>         
+        </methods>      
+      </class>
+    </classes>
+  </test>
+   <listeners>
+    <listener class-name="EmailableReporter" />
+  </listeners>
+</suite>

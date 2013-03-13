@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+	
+<project name="IWS Calls Automation" default="run" basedir=".">
+	 <property name="classes.dir" value="bin" />
+	 <property name="src.dir" value="src" />
+	 <property name="testng.output.dir" value="testng_output" />
+	
+	<path id="libs">
+	  <fileset dir="lib">
+	   <include name="*.jar"/>
+	  </fileset>
+	  <pathelement path="${basedir}\${classes.dir}"/>
+	 </path>
+	
+	 <path id="classes">
+	     <pathelement location="${classes.dir}"/>
+	  </path>
+	
+	 <target name="run">
+	    <antcall target="init"/> 
+	    <antcall target="compile"/>
+	 	<antcall target="runTests"/>
+	  </target>	 	
+	 
+	 <!-- Delete old data and create new directories -->
+	 <target name="init" >
+	  <echo>Initlizing...</echo>
+	  <delete dir="${classes.dir}" />
+	  <mkdir dir="${classes.dir}"/>
+	  <delete dir="${testng.output.dir}" />
+	  <mkdir dir="${testng.output.dir}"/>
+	  <mkdir dir="${logs.dir}"/>
+	 </target>
+
+	 <!-- Complies the java files -->
+	 <target name="compile">
+	  <echo>Compiling...</echo>
+	  <javac includeantruntime="false" debug="true" srcdir="${src.dir}" destdir="${classes.dir}"  classpathref="libs" />
+	 </target>
+
+	 <!-- Runs the file and generates Reportng report -->
+	<taskdef name="testng" classname="org.testng.TestNGAntTask">
+	    <classpath>
+	      <pathelement location="lib/testng.jar"/>
+	    </classpath>
+	  </taskdef>
+	
+	<target name="runTests" description="Running tests" >
+	  <echo>Running Tests...</echo>		
+	 	<testng outputdir="${testng.output.dir}" classpathref="libs"> 
+	 	      <xmlfileset dir="." includes="testng.xml"/> 
+	 	</testng>
+	 </target>
+
+	</project>
